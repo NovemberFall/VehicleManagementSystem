@@ -1,5 +1,8 @@
 package com.vehiclemanagement.fleetapp.controller;
 
+import com.vehiclemanagement.fleetapp.model.State;
+import com.vehiclemanagement.fleetapp.service.CountryService;
+import com.vehiclemanagement.fleetapp.service.StateService;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,57 +15,45 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 
-
 @Controller
 public class StateController {
-	
-//	@Autowired private StateService stateService;
-//	@Autowired private CountryService countryService;
 
+    @Autowired
+    private StateService stateService;
 
+    @Autowired
+    private CountryService countryService;
 
-	@GetMapping("/states")
-	public String getCountries() {
-		return "state";
-	}
+    //Get All States
+    @GetMapping("states")
+    public String findAll(Model model) {
+        model.addAttribute("states", stateService.findAll());
+        model.addAttribute("countries", countryService.getCountries());
+        return "State";
+    }
 
+    @RequestMapping("states/findById")
+    @ResponseBody
+    public Optional<State> findById(Integer id) {
+        return stateService.findById(id);
+    }
 
+    //Add State
+    @PostMapping(value = "states/addNew")
+    public String addNew(State state) {
+        stateService.save(state);
+        return "redirect:/states";
+    }
 
+    @RequestMapping(value = "states/update", method = {RequestMethod.PUT, RequestMethod.GET})
+    public String update(State state) {
+        stateService.save(state);
+        return "redirect:/states";
+    }
 
-
-
-
-//	//Get All States
-//	@GetMapping("states")
-//	public String findAll(Model model){
-//		model.addAttribute("states", stateService.findAll());
-//		model.addAttribute("countries", countryService.findAll());
-//		return "state";
-//	}
-//
-//	@RequestMapping("states/findById")
-//	@ResponseBody
-//	public Optional<State> findById(Integer id)
-//	{
-//		return stateService.findById(id);
-//	}
-//
-//	//Add State
-//	@PostMapping(value="states/addNew")
-//	public String addNew(State state) {
-//		stateService.save(state);
-//		return "redirect:/states";
-//	}
-//
-//	@RequestMapping(value="states/update", method = {RequestMethod.PUT, RequestMethod.GET})
-//	public String update(State state) {
-//		stateService.save(state);
-//		return "redirect:/states";
-//	}
-//
-//	@RequestMapping(value="states/delete", method = {RequestMethod.DELETE, RequestMethod.GET})
-//	public String delete(Integer id) {
-//		stateService.delete(id);
-//		return "redirect:/states";
-//	}
+    @RequestMapping(value = "states/delete", method = {RequestMethod.DELETE, RequestMethod.GET})
+    public String delete(Integer id) {
+        stateService.delete(id);
+        return "redirect:/states";
+    }
 }

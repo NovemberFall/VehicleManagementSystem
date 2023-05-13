@@ -26,21 +26,23 @@ public class CountryService {
 		countryRepository.save(country);
 	}
 
+	//Get Country By Id
+	public Optional<Country> findById(int id) {
+		return countryRepository.findById(id);
+	}
+
+
+	//Delete Country
+	public void delete(int id) {
+		countryRepository.deleteById(id);
+	}
+
 
 //	//Get All Countrys
 //	public List<Country> findAll(){
 //		return countryRepository.findAll();
 //	}
 //
-//	//Get Country By Id
-//	public Optional<Country> findById(int id) {
-//		return countryRepository.findById(id);
-//	}
-//
-//	//Delete Country
-//	public void delete(int id) {
-//		countryRepository.deleteById(id);
-//	}
 //
 //	//Update Country
 //	public void save( Country country) {
