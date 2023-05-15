@@ -1,5 +1,7 @@
 package com.vehiclemanagement.fleetapp.controller;
 
+import com.vehiclemanagement.fleetapp.model.EmployeeType;
+import com.vehiclemanagement.fleetapp.service.EmployeeTypeService;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,46 +17,41 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 public class EmployeeTypeController {
 	
-//	@Autowired private EmployeeTypeService employeeTypeService;
+	@Autowired
+	private EmployeeTypeService employeeTypeService;
 
 
-	@GetMapping("/employeetypes")
-	public String getCountries() {
+	//Get All EmployeeTypes
+	@GetMapping("/employeeTypes")
+	public String findAll(Model model){
+		model.addAttribute("employeeTypes", employeeTypeService.findAll());
 		return "employeeType";
 	}
 
+	@RequestMapping("/employeeTypes/findById")
+	@ResponseBody
+	public Optional<EmployeeType> findById(Integer id)
+	{
+		return employeeTypeService.findById(id);
+	}
 
-//	//Get All EmployeeTypes
-//	@GetMapping("employeeTypes")
-//	public String findAll(Model model){
-//		model.addAttribute("employeeTypes", employeeTypeService.findAll());
-//		return "employeeType";
-//	}
-//
-//	@RequestMapping("employeeTypes/findById")
-//	@ResponseBody
-//	public Optional<EmployeeType> findById(Integer id)
-//	{
-//		return employeeTypeService.findById(id);
-//	}
-//
-//	//Add EmployeeType
-//	@PostMapping(value="employeeTypes/addNew")
-//	public String addNew(EmployeeType employeeType) {
-//		employeeTypeService.save(employeeType);
-//		return "redirect:/employeeTypes";
-//	}
-//
-//	@RequestMapping(value="employeeTypes/update", method = {RequestMethod.PUT, RequestMethod.GET})
-//	public String update(EmployeeType employeeType) {
-//		employeeTypeService.save(employeeType);
-//		return "redirect:/employeeTypes";
-//	}
-//
-//	@RequestMapping(value="employeeTypes/delete", method = {RequestMethod.DELETE, RequestMethod.GET})
-//	public String delete(Integer id) {
-//		employeeTypeService.delete(id);
-//		return "redirect:/employeeTypes";
-//	}
+	//Add EmployeeType
+	@PostMapping(value="/employeeTypes/addNew")
+	public String addNew(EmployeeType employeeType) {
+		employeeTypeService.save(employeeType);
+		return "redirect:/employeeTypes";
+	}
+
+	@RequestMapping(value="/employeeTypes/update", method = {RequestMethod.PUT, RequestMethod.GET})
+	public String update(EmployeeType employeeType) {
+		employeeTypeService.save(employeeType);
+		return "redirect:/employeeTypes";
+	}
+
+	@RequestMapping(value="/employeeTypes/delete", method = {RequestMethod.DELETE, RequestMethod.GET})
+	public String delete(Integer id) {
+		employeeTypeService.delete(id);
+		return "redirect:/employeeTypes";
+	}
 
 }

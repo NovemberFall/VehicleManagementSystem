@@ -1,5 +1,7 @@
 package com.vehiclemanagement.fleetapp.controller;
 
+import com.vehiclemanagement.fleetapp.model.VehicleModel;
+import com.vehiclemanagement.fleetapp.service.VehicleModelService;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,46 +19,41 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class VehicleModelController {
 
 	
-//	@Autowired private VehicleModelService vehicleModelService;
+	@Autowired
+	private VehicleModelService vehicleModelService;
 
 
-	@GetMapping("/vehiclemodels")
-	public String getCountries() {
+	//Get All VehicleModels
+	@GetMapping("/vehicleModels")
+	public String findAll(Model model){
+		model.addAttribute("vehicleModels", vehicleModelService.findAll());
 		return "vehicleModel";
 	}
 
+	@RequestMapping("/vehicleModels/findById")
+	@ResponseBody
+	public Optional<VehicleModel> findById(Integer id)
+	{
+		return vehicleModelService.findById(id);
+	}
 
-//	//Get All VehicleModels
-//	@GetMapping("vehicleModels")
-//	public String findAll(Model model){
-//		model.addAttribute("vehicleModels", vehicleModelService.findAll());
-//		return "vehicleModel";
-//	}
-//
-//	@RequestMapping("vehicleModels/findById")
-//	@ResponseBody
-//	public Optional<VehicleModel> findById(Integer id)
-//	{
-//		return vehicleModelService.findById(id);
-//	}
-//
-//	//Add VehicleModel
-//	@PostMapping(value="vehicleModels/addNew")
-//	public String addNew(VehicleModel vehicleModel) {
-//		vehicleModelService.save(vehicleModel);
-//		return "redirect:/vehicleModels";
-//	}
-//
-//	@RequestMapping(value="vehicleModels/update", method = {RequestMethod.PUT, RequestMethod.GET})
-//	public String update(VehicleModel vehicleModel) {
-//		vehicleModelService.save(vehicleModel);
-//		return "redirect:/vehicleModels";
-//	}
-//
-//	@RequestMapping(value="vehicleModels/delete", method = {RequestMethod.DELETE, RequestMethod.GET})
-//	public String delete(Integer id) {
-//		vehicleModelService.delete(id);
-//		return "redirect:/vehicleModels";
-//	}
+	//Add VehicleModel
+	@PostMapping(value="/vehicleModels/addNew")
+	public String addNew(VehicleModel vehicleModel) {
+		vehicleModelService.save(vehicleModel);
+		return "redirect:/vehicleModels";
+	}
+
+	@RequestMapping(value="/vehicleModels/update", method = {RequestMethod.PUT, RequestMethod.GET})
+	public String update(VehicleModel vehicleModel) {
+		vehicleModelService.save(vehicleModel);
+		return "redirect:/vehicleModels";
+	}
+
+	@RequestMapping(value="/vehicleModels/delete", method = {RequestMethod.DELETE, RequestMethod.GET})
+	public String delete(Integer id) {
+		vehicleModelService.delete(id);
+		return "redirect:/vehicleModels";
+	}
 
 }

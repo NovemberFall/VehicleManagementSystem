@@ -23,7 +23,7 @@ public class VehicleHireController {
 
 
 
-	@GetMapping("/vehiclehire")
+	@GetMapping("/vehicleHires")
 	public String getCountries() {
 		return "vehicleHire";
 	}
