@@ -17,7 +17,7 @@ public class CountryService {
 	private CountryRepository countryRepository;
 
 	//Get All Countrys
-	public List<Country> getCountries(){
+	public List<Country> findAll(){
 		return countryRepository.findAll();
 	}
 
@@ -36,17 +36,4 @@ public class CountryService {
 	public void delete(int id) {
 		countryRepository.deleteById(id);
 	}
-
-
-//	//Get All Countrys
-//	public List<Country> findAll(){
-//		return countryRepository.findAll();
-//	}
-//
-//
-//	//Update Country
-//	public void save( Country country) {
-//		countryRepository.save(country);
-//	}
-
 }

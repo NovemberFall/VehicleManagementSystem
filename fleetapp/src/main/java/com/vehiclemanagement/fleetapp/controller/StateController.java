@@ -28,7 +28,7 @@ public class StateController {
     @GetMapping("states")
     public String findAll(Model model) {
         model.addAttribute("states", stateService.findAll());
-        model.addAttribute("countries", countryService.getCountries());
+        model.addAttribute("countries", countryService.findAll());
         return "State";
     }
 

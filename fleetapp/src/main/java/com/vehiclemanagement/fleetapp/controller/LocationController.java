@@ -33,7 +33,7 @@ public class LocationController {
     @GetMapping("")
     public String findAll(Model model) {
         model.addAttribute("locations", locationService.findAll());
-        model.addAttribute("countries", countryService.getCountries());
+        model.addAttribute("countries", countryService.findAll());
         model.addAttribute("states", stateService.findAll());
 
         return "location";
