@@ -19,42 +19,41 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 public class CountryController {
 
-	@Autowired
-	private CountryService countryService;
+    @Autowired
+    private CountryService countryService;
 
-	//Get All Countrys
-	@GetMapping("/countries")
-	public String findAll(Model model){
-		List<Country> countryList = countryService.findAll();
-		model.addAttribute("countries", countryList);
-		return "Country";
-	}
+    //Get All Countrys
+    @GetMapping("/countries")
+    public String findAll(Model model) {
+        List<Country> countryList = countryService.findAll();
+        model.addAttribute("countries", countryList);
+        return "Country";
+    }
 
-	//Add Country
-	@PostMapping("/countries/addNew")
-	public String addNew(Country country) {
-		countryService.save(country);
-		return "redirect:/countries";
-	}
+    //Add Country
+    @PostMapping("/countries/addNew")
+    public String addNew(Country country) {
+        countryService.save(country);
+        return "redirect:/countries";
+    }
 
-	@RequestMapping("countries/findById")
-	@ResponseBody
-	public Optional<Country> findById(Integer id)
-	{
-		return countryService.findById(id);
-	}
-
-
-	@RequestMapping(value="countries/update", method = {RequestMethod.PUT, RequestMethod.GET})
-	public String update(Country country) {
-		countryService.save(country);
-		return "redirect:/countries";
-	}
+    @RequestMapping("countries/findById")
+    @ResponseBody
+    public Optional<Country> findById(Integer id) {
+        return countryService.findById(id);
+    }
 
 
-	@RequestMapping(value="countries/delete", method = {RequestMethod.DELETE, RequestMethod.GET})
-	public String delete(Integer id) {
-		countryService.delete(id);
-		return "redirect:/countries";
-	}
+    @RequestMapping(value = "countries/update", method = {RequestMethod.PUT, RequestMethod.GET})
+    public String update(Country country) {
+        countryService.save(country);
+        return "redirect:/countries";
+    }
+
+
+    @RequestMapping(value = "countries/delete", method = {RequestMethod.DELETE, RequestMethod.GET})
+    public String delete(Integer id) {
+        countryService.delete(id);
+        return "redirect:/countries";
+    }
 }
